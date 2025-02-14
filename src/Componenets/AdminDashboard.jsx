@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import CompanyCard from "./CompanyCard";
 import axios from "axios";
 
-const Home = () => {
+const AdminDashboard = () => {
   const [companies, setCompanies] = useState([]);
 
   const fetchCompany = async () => {
@@ -41,4 +41,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default AdminDashboard;

@@ -1,22 +1,52 @@
-import React from 'react'
 import { useState } from "react";
+import axios from "axios";
+import { BASE_URL } from "../utils/constants";
 
 
 const Truck = () => {
   const [stops, setStops] = useState(["Stop-1"]); // Initially, only one stop is visible
+  const [licensePlate, setLicensePlate] = useState("1234");
+  const [totalCapacity, setTotalCapacity] = useState(1000);
+  const [currentLoad, setCurrentLoad] = useState([""]); // Stores input values for each stop
+  const [error, setError] = useState("");
 
+  // Add a new stop dynamically
   const addStop = () => {
     if (stops.length < 10) {
-      setStops([...stops, `Stop-${stops.length + 1}`]); // Adds the next stop dynamically
+      setStops([...stops, `Stop-${stops.length + 1}`]);
+      setCurrentLoad([...currentLoad, ""]); // Add empty input for new stop
     }
   };
 
-  const [licensePlate, setLicensePlate] = useState("1234");
-  const [totalCapacity, setTotalCapacity] = useState("1000");
+  // Update currentLoad when input changes
+  const updateCurrentLoad = (index, value) => {
+    const updatedLoad = [...currentLoad];
+    updatedLoad[index] = value;
+    setCurrentLoad(updatedLoad);
+  };
+
+  // API call to add truck
+  const handleAddTruck = async () => {
+    try {
+      setError(""); // ✅ Clear error before making API call
+
+      const res = await axios.post(
+        BASE_URL + "/scheduleDelivery/addtruck",
+        { licensePlate, totalCapacity, currentLoad },
+        { withCredentials: true }
+      );
+
+      console.log("Truck Added:", res.data);
+      setError(""); // ✅ Ensure error is cleared after success
+    } catch (err) {
+      console.log(err);
+      setError(err.response?.data || "Something went wrong");
+    }
+  };
 
   return (
     <div className="flex justify-center items-center min-h-screen p-10">
-      <div className="p-8 rounded-lg shadow-lg w-[500px]">
+      <div className="p-8 rounded-lg shadow-lg w-[500px] bg-gray-800">
         <h1 className="text-center text-white text-2xl font-bold mb-6">Add Truck</h1>
 
         {/* License Plate Input */}
@@ -24,7 +54,13 @@ const Truck = () => {
           <div className="label">
             <span className="label-text text-white">License Plate</span>
           </div>
-          <input type="text" placeholder="Type here" value={licensePlate} onChange={(e)=> setLicensePlate(e.target.value)} className="input input-bordered w-full" />
+          <input
+            type="text"
+            placeholder="Type here"
+            value={licensePlate}
+            onChange={(e) => setLicensePlate(e.target.value)}
+            className="input input-bordered w-full"
+          />
         </label>
 
         {/* Total Capacity Input */}
@@ -32,7 +68,13 @@ const Truck = () => {
           <div className="label">
             <span className="label-text text-white">Total Capacity</span>
           </div>
-          <input type="text" placeholder="Type here" value={totalCapacity} onChange={(e)=> setTotalCapacity(e.target.value)} className="input input-bordered w-full" />
+          <input
+            type="number"
+            placeholder="Type here"
+            value={totalCapacity}
+            onChange={(e) => setTotalCapacity(e.target.value)}
+            className="input input-bordered w-full"
+          />
         </label>
 
         {/* Stops Section */}
@@ -56,15 +98,21 @@ const Truck = () => {
                 </svg>
               </div>
               <div className="timeline-end timeline-box w-full flex items-center gap-2">
-                <input type="text" placeholder="Type here" className="input input-bordered w-full" />
-                
+                <input
+                  type="number"
+                  placeholder="Enter capacity"
+                  value={currentLoad[index]}
+                  onChange={(e) => updateCurrentLoad(index, e.target.value)}
+                  className="input input-bordered w-full"
+                />
+
                 {/* Circular + Button to Add More Stops */}
                 {index === stops.length - 1 && stops.length < 10 && (
                   <button
                     onClick={addStop}
-                    className="h-6 w-6 aspect-square flex items-center justify-center rounded-full bg-gray-700 text-gray-300 text-xl font-bold hover:bg-gray-600 transition p-0"
+                    className="h-10 w-10 flex items-center justify-center rounded-full bg-gray-700 text-gray-300 text-xl font-bold hover:bg-gray-600 transition"
                   >
-                    <span className="leading-none py-2">+</span>
+                    +
                   </button>
                 )}
               </div>
@@ -73,15 +121,15 @@ const Truck = () => {
         </ul>
 
         {/* Submit Button */}
-        <button className="btn btn-success w-full mt-6">Add</button>
+        <button className="btn btn-success w-full mt-6" onClick={handleAddTruck}>
+          Add
+        </button>
+
+        {/* Error Message Display */}
+        {error && <p className="text-red-500 text-center mt-4">{error}</p>}
       </div>
     </div>
   );
 };
 
 export default Truck;
-
-
-
-
-

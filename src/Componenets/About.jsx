@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from "react-router-dom";
 
 const About = () => {
   return (
@@ -112,9 +113,11 @@ const About = () => {
 
 
 <div className="flex flex-col items-center mt-6">
+<Link to="/truck">
   <button className="btn btn-outline btn-success text-lg px-6 py-3 shadow-md hover:scale-105 transition-transform">
     Schedule
   </button>
+</Link>
   <p className="mt-5 text-lg font-semibold text-gray-500">
     Schedule Your Route Today!
   </p>

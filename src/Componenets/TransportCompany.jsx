@@ -6,4 +6,4 @@ const TransportCompany = () => {
   )
 }
 
-export default TransportCompany
+export default TransportCompany 

@@ -5,6 +5,7 @@ import Home from "./Componenets/Home";
 import Login from "./Componenets/Login";
 import appStore from "./utils/appStore";
 import Truck from "./Componenets/Truck"
+import AdminDashboard from "./Componenets/AdminDashboard";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Route path="/" element={<Home/>}/>
       <Route path="/login" element={<Login/>}/>
       <Route path="/truck" element={<Truck/>}/>
+      <Route path="/admin" element={<AdminDashboard/>}/>
       
       </Route>
     </Routes>

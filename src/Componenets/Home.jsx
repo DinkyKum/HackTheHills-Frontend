@@ -11,8 +11,6 @@ const Home = () => {
         <HeroSection/>
         <Features/>
         <About/>
-
-        <AdminDashboard/>
         <ContactUs/>
 
     </div>
