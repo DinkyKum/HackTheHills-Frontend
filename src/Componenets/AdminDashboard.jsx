@@ -7,12 +7,17 @@ const AdminDashboard = () => {
 
   const fetchCompany = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/viewCompany", { withCredentials: true });
-      setCompanies(res.data); // Store fetched data in state
+      const res = await axios.get("http://localhost:3000/viewCompany", {
+        withCredentials: true,
+      },
+    );
+      console.log("API Response:", res.data);
+      setCompanies(res.data);
     } catch (error) {
-      console.error("Error fetching companies:", error);
+      console.error("Error fetching companies:", error.response?.data || error.message);
     }
   };
+  
 
   useEffect(() => {
     fetchCompany();
