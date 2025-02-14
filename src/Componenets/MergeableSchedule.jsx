@@ -23,20 +23,20 @@ const MergeableSchedule = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-50 p-6">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 p-6">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-10">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+          <h1 className="text-4xl font-bold text-white mb-4">
             Route Optimization
           </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-400 max-w-2xl mx-auto">
             Discover efficient route combinations and optimize your delivery schedules
           </p>
         </div>
 
         <button 
           className={`
-            w-full max-w-xl mx-auto bg-emerald-600 hover:bg-emerald-700 
+            w-full max-w-xl mx-auto bg-emerald-600 hover:bg-emerald-500 
             text-white font-semibold py-4 px-8 rounded-2xl shadow-lg 
             transition-all duration-200 flex items-center justify-center gap-3
             ${loading ? 'opacity-90 cursor-wait' : 'hover:scale-[1.02] active:scale-[0.98]'}
@@ -58,9 +58,9 @@ const MergeableSchedule = () => {
               mergeablePairs.map((pair, index) => (
                 <div 
                   key={index} 
-                  className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100"
+                  className="bg-gray-800 rounded-3xl shadow-xl overflow-hidden border border-gray-700"
                 >
-                  <div className="bg-gradient-to-r from-emerald-600 to-teal-600 px-8 py-6">
+                  <div className="bg-gradient-to-r from-emerald-600 to-emerald-500 px-8 py-6">
                     <div className="flex items-center justify-between">
                       <h3 className="text-2xl font-bold text-white">
                         Route Combination {index + 1}
@@ -80,14 +80,14 @@ const MergeableSchedule = () => {
                     }].map((truck, idx) => (
                       <div key={idx} className="relative">
                         <div className="flex items-center gap-4 mb-6">
-                          <div className="flex-shrink-0 w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
-                            <Truck className="w-6 h-6 text-emerald-600" />
+                          <div className="flex-shrink-0 w-12 h-12 bg-gray-700 rounded-xl flex items-center justify-center">
+                            <Truck className="w-6 h-6 text-emerald-400" />
                           </div>
                           <div>
-                            <h4 className="text-xl font-semibold text-gray-900">
+                            <h4 className="text-xl font-semibold text-white">
                               {truck.label}
                             </h4>
-                            <p className="text-sm text-gray-500">
+                            <p className="text-sm text-gray-400">
                               Vehicle ID: {truck.licensePlate}
                             </p>
                           </div>
@@ -109,17 +109,17 @@ const MergeableSchedule = () => {
                                 </div>
                               </div>
                               
-                              <div className="bg-gray-50 rounded-2xl p-4 shadow-sm border border-gray-100">
+                              <div className="bg-gray-700 rounded-2xl p-4 shadow-sm border border-gray-600">
                                 <div className="flex items-start gap-3">
-                                  <MapPin className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-1" />
+                                  <MapPin className="w-5 h-5 text-emerald-400 flex-shrink-0 mt-1" />
                                   <div>
-                                    <p className="text-gray-900">{stop}</p>
+                                    <p className="text-gray-200">{stop}</p>
                                   </div>
                                 </div>
                               </div>
 
                               {stopIndex !== truck.stops.length - 1 && (
-                                <div className="absolute left-[-14px] ml-[-1px] w-[2px] h-8 bg-emerald-200"
+                                <div className="absolute left-[-14px] ml-[-1px] w-[2px] h-8 bg-emerald-600/30"
                                      style={{top: '2.5rem'}} />
                               )}
                             </div>
@@ -128,17 +128,18 @@ const MergeableSchedule = () => {
                       </div>
                     ))}
                   </div>
+
                 </div>
               ))
             ) : (
-              <div className="text-center py-16 bg-white rounded-3xl shadow-md">
-                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <div className="text-center py-16 bg-gray-800 rounded-3xl shadow-md border border-gray-700">
+                <div className="w-16 h-16 bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-6">
                   <Truck className="w-8 h-8 text-gray-400" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                <h3 className="text-xl font-semibold text-white mb-2">
                   No Mergeable Routes Found
                 </h3>
-                <p className="text-gray-500 max-w-md mx-auto">
+                <p className="text-gray-400 max-w-md mx-auto">
                   Current routes are optimized or cannot be merged. Try analyzing different time slots or areas.
                 </p>
               </div>
