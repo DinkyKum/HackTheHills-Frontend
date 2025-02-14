@@ -1,6 +1,6 @@
 import React from "react";
 
-const CompanyCard = ({ imageUrl, name, registrationNo, address, email }) => {
+const CompanyCard = ({imageUrl, name, registrationNo, address, email}) => {
   return (
     <div className="w-80 h-96 mx-auto overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all border border-gray-200">
       <div className="w-full h-48">

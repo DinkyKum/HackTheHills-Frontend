@@ -4,7 +4,7 @@ import { featureData } from '../utils/features';
 const FeatureCard = ({ image, title, description }) => {
   return (
     
-    <div className="card bg-base-100 w-[220px] shadow-xl">
+    <div className="card  w-[220px] shadow-xl bg-gray-800/50 border border-gray-700/50 shadow-lg hover:shadow-emerald-500/5 transition-all duration-300">
       <figure className="px-10 pt-10">
         <img
           src={image}
@@ -25,7 +25,8 @@ const Features = () => {
 
   return (
     <div>
-      <h1 className='text-4xl font-bold flex justify-center mb-5 mt-10'>Our Features</h1>
+      <h1 className="text-3xl font-bold text-white mb-2 flex justify-center mt-10">Our Features</h1>
+      <div className="w-20 h-1 bg-emerald-500 mx-auto mb-3 rounded-full"></div>
     <div className="flex flex-wrap justify-center gap-6">
 
       {featureData.map((feature, index) => (
