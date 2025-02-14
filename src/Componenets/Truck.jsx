@@ -41,7 +41,6 @@ const Truck = () => {
 
       console.log("Truck Added:", res.data);
       setError(""); // ✅ Ensure error is cleared after success
-      navigate("/route");
     } catch (err) {
       console.log(err);
       setError(err.response?.data || "Something went wrong");

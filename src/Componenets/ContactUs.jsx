@@ -4,7 +4,7 @@ import { Mail, User, Send, Phone, MapPin } from 'lucide-react';
 
 const ContactUs = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br mt-10 px-6 py-8">
+    <div id="contact" className="min-h-screen bg-gradient-to-br mt-10 px-6 py-8">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-white mb-2">Get in Touch</h1>

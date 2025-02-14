@@ -3,8 +3,7 @@ import { featureData } from '../utils/features';
 
 const FeatureCard = ({ image, title, description }) => {
   return (
-    
-    <div className="card  w-[220px] shadow-xl bg-gray-800/50 border border-gray-700/50 shadow-lg hover:shadow-emerald-500/5 transition-all duration-300">
+    <div className="card  w-[220px] bg-gray-800/50 border border-gray-700/50 shadow-lg hover:shadow-emerald-500/5 transition-all duration-300">
       <figure className="px-10 pt-10">
         <img
           src={image}
@@ -24,7 +23,7 @@ const FeatureCard = ({ image, title, description }) => {
 const Features = () => {
 
   return (
-    <div>
+    <div id="features" className="mb-10">
       <h1 className="text-3xl font-bold text-white mb-2 flex justify-center mt-10">Our Features</h1>
       <div className="w-20 h-1 bg-emerald-500 mx-auto mb-3 rounded-full"></div>
     <div className="flex flex-wrap justify-center gap-6">

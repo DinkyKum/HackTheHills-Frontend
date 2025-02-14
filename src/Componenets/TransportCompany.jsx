@@ -1,8 +1,13 @@
+import Truck from './Truck'
 import React from 'react'
+import AddRoute from './AddRoute'
 
 const TransportCompany = () => {
   return (
-    <div>TransportCompany</div>
+    <div>
+      <Truck/>
+      <AddRoute/>
+    </div>
   )
 }
 

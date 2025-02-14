@@ -1,5 +1,6 @@
 import React from 'react'
 import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom'
 
 
 const Navbar = () => {
@@ -10,17 +11,16 @@ const Navbar = () => {
   return (
     <div className="navbar bg-base-100">
   <div className="flex-1">
-    <a className="btn btn-ghost text-xl">Logo</a>
+    <a className="btn btn-ghost text-2xl" href="/">FarmXpress</a>
   </div>
   <div className="flex-none gap-2">
     {/* <div className="form-control">
       <input type="text" placeholder="Search" className="input input-bordered w-24 md:w-auto" />
     </div> */}
     <div className='flex gap-10 text-lg mr-5 font-bold'>
-    <div>About</div>
-    <div>Features</div>
-    <div>Testimonials</div>
-    <div>Contact Us</div>
+    <Link to="/"><div><a href='#about'> About </a></div></Link>
+    <div><a href='#features'>Features</a></div>
+    <div><a href='#contact'>Contact Us</a></div>
     </div>
     <div className="dropdown dropdown-end">
       <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
