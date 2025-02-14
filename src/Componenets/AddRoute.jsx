@@ -3,41 +3,42 @@ import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 
 
-const Truck = () => {
-  const [stops, setStops] = useState(["Stop-1"]); // Initially, only one stop is visible
+const AddRoute = () => {
+  const [uistops, setUiStops] = useState(["Stop-1"]); // Initially, only one stop is visible
   const [licensePlate, setLicensePlate] = useState("1234");
-  const [totalCapacity, setTotalCapacity] = useState(1000);
-  const [currentLoad, setCurrentLoad] = useState([""]); // Stores input values for each stop
+  const [source, setSource] = useState("");
+  const [destination, setDestination] = useState("");
+  const [stops,setStops] = useState([]); // Stores input values for each stop
   const [error, setError] = useState("");
 
   // Add a new stop dynamically
   const addStop = () => {
-    if (stops.length < 10) {
-      setStops([...stops, `Stop-${stops.length + 1}`]);
-      setCurrentLoad([...currentLoad, ""]); // Add empty input for new stop
+    if (uistops.length < 10) {
+      setUiStops([...uistops, `Stop-${uistops.length + 1}`]);
+      setStops([...stops, ""]); // Add empty input for new stop
     }
   };
 
   // Update currentLoad when input changes
-  const updateCurrentLoad = (index, value) => {
-    const updatedLoad = [...currentLoad];
-    updatedLoad[index] = Number(value);
-    setCurrentLoad(updatedLoad);
-    console.log(currentLoad);
+  const updateStops = (index, value) => {
+    const updatedStops = [...stops];
+    updatedStops[index] = value;
+    setStops(updatedStops);
+    console.log(stops);
   };
 
   // API call to add truck
-  const handleAddTruck = async () => {
+  const handleAddRoute = async () => {
     try {
       setError(""); // ✅ Clear error before making API call
 
       const res = await axios.post(
-        BASE_URL + "/scheduleDelivery/addtruck",
-        { licensePlate, totalCapacity, currentLoad },
+        BASE_URL + "/scheduleDelivery/addroute",
+        { licensePlate, source, destination, stops },
         { withCredentials: true }
       );
 
-      console.log("Truck Added:", res.data);
+      console.log("Route Added:", res.data);
       setError(""); // ✅ Ensure error is cleared after success
     } catch (err) {
       console.log(err);
@@ -48,7 +49,7 @@ const Truck = () => {
   return (
     <div className="flex justify-center items-center min-h-screen p-10">
       <div className="p-8 rounded-lg shadow-lg w-[500px] bg-gray-800">
-        <h1 className="text-center text-white text-2xl font-bold mb-6">Add Truck</h1>
+        <h1 className="text-center text-white text-2xl font-bold mb-6">Add Route</h1>
 
         {/* License Plate Input */}
         <label className="form-control w-full">
@@ -67,23 +68,36 @@ const Truck = () => {
         {/* Total Capacity Input */}
         <label className="form-control w-full mt-4">
           <div className="label">
-            <span className="label-text text-white">Total Capacity</span>
+            <span className="label-text text-white">Source</span>
           </div>
           <input
-            type="number"
+            type="text"
             placeholder="Type here"
-            value={totalCapacity}
-            onChange={(e) => setTotalCapacity(e.target.value)}
+            value={source}
+            onChange={(e) => setSource(e.target.value)}
+            className="input input-bordered w-full"
+          />
+        </label>
+
+        <label className="form-control w-full mt-4">
+          <div className="label">
+            <span className="label-text text-white">Destination</span>
+          </div>
+          <input
+            type="text"
+            placeholder="Type here"
+            value={destination}
+            onChange={(e) => setDestination(e.target.value)}
             className="input input-bordered w-full"
           />
         </label>
 
         {/* Stops Section */}
-        <span className="label-text text-white mt-6 block">Current Capacity - At Each Stop</span>
+        <span className="label-text text-white mt-6 block">Enter Names of Stops</span>
         <ul className="timeline timeline-vertical mt-4">
-          {stops.map((stop, index) => (
+          {uistops.map((uistop, index) => (
             <li key={index} className="flex items-center gap-2">
-              <div className="timeline-start text-white w-20">{stop}</div>
+              <div className="timeline-start text-white w-20">{uistop}</div>
               <div className="timeline-middle">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -100,15 +114,15 @@ const Truck = () => {
               </div>
               <div className="timeline-end timeline-box w-full flex items-center gap-2">
                 <input
-                  type="number"
-                  placeholder="Enter capacity"
-                  value={currentLoad[index]}
-                  onChange={(e) => updateCurrentLoad(index, e.target.value)}
+                  type="text"
+                  placeholder="Enter Stop Name"
+                  value={stops[index]}
+                  onChange={(e) => updateStops(index, e.target.value)}
                   className="input input-bordered w-full"
                 />
 
                 {/* Circular + Button to Add More Stops */}
-                {index === stops.length - 1 && stops.length < 10 && (
+                {index === uistops.length - 1 && uistops.length < 10 && (
                   <button
                     onClick={addStop}
                     className="h-10 w-10 flex items-center justify-center rounded-full bg-gray-700 text-gray-300 text-xl font-bold hover:bg-gray-600 transition"
@@ -122,7 +136,7 @@ const Truck = () => {
         </ul>
 
         {/* Submit Button */}
-        <button className="btn btn-success w-full mt-6" onClick={handleAddTruck}>
+        <button className="btn btn-success w-full mt-6" onClick={handleAddRoute}>
           Add
         </button>
 
@@ -133,4 +147,4 @@ const Truck = () => {
   );
 };
 
-export default Truck;
+export default AddRoute;
