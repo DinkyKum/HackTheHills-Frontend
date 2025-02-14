@@ -16,18 +16,24 @@ const Login = () => {
   const dispatch = useDispatch()
   const navigate=useNavigate();
 
-  const HandleLogin= async ()=>{
-    try{
-      const res= await axios.post(BASE_URL+ "/login", {emailId, password}, {withCredentials:true});
-      dispatch(addUser(res.data))
-      navigate('/')
-    }
+  const HandleLogin = async () => {
+    try {
+        const res = await axios.post(BASE_URL + "/login", { emailId, password }, { withCredentials: true });
+        dispatch(addUser(res.data));
 
-    catch(err){
-      console.log(err);
-      setError(err.response.data || "Something went wrong");
+        // Check for admin credentials
+        if (emailId === "Admin@gmail.com" && password === "Admin@123") {
+            navigate('/admin');
+        } else {
+            navigate('/');
+        }
+    } 
+    catch (err) {
+        console.log(err);
+        setError(err.response.data || "Something went wrong");
     }
-  }
+};
+
 
   const HandleSignUp=async ()=>{
     try{
