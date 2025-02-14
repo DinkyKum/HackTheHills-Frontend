@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
+import { useNavigate } from "react-router-dom";
 
 
 const Truck = () => {
@@ -9,6 +10,7 @@ const Truck = () => {
   const [totalCapacity, setTotalCapacity] = useState(1000);
   const [currentLoad, setCurrentLoad] = useState([""]); // Stores input values for each stop
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   // Add a new stop dynamically
   const addStop = () => {
@@ -39,6 +41,7 @@ const Truck = () => {
 
       console.log("Truck Added:", res.data);
       setError(""); // ✅ Ensure error is cleared after success
+      navigate("/route");
     } catch (err) {
       console.log(err);
       setError(err.response?.data || "Something went wrong");
