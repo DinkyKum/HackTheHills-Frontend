@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import CompanyCard from "./CompanyCard";
 import axios from "axios";
+import AdminSection from "./AdminSection";
 
 const AdminDashboard = () => {
   const [companies, setCompanies] = useState([]);
@@ -22,6 +23,9 @@ const AdminDashboard = () => {
   }, []);
 
   return (
+    <div>
+    <div className="h-[200px]"><AdminSection/></div>
+    <div>
     <main className="max-w-6xl mx-auto py-12 px-4">
       <h1 className="text-3xl font-bold mb-8 text-center">Featured Companies</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -41,6 +45,8 @@ const AdminDashboard = () => {
         )}
       </div>
     </main>
+    </div>
+    </div>
   );
 };
 
