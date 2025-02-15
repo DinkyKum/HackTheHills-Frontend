@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import CompanyCard from "./CompanyCard";
 import axios from "axios";
 import AdminSection from "./AdminSection";
+import { BASE_URL } from "../utils/constants";
 
 const AdminDashboard = () => {
   const [companies, setCompanies] = useState([]);
 
   const fetchCompany = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/viewCompany", {
+      const res = await axios.get( BASE_URL + "/viewCompany", {
         withCredentials: true,
       });
       console.log("API Response:", res.data);
