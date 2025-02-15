@@ -17,7 +17,6 @@ const Home = () => {
         <Features/>
         <About/>
         <ContactUs/>
-      <FooterSec/>
 
     </div>
   )
