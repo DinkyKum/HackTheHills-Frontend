@@ -2,14 +2,14 @@ import { useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 
-
 const AddRoute = () => {
-  const [uistops, setUiStops] = useState(["Stop-1"]); // Initially, only one stop is visible
+  const [uistops, setUiStops] = useState(["Stop-1"]); // UI stops (labels)
   const [licensePlate, setLicensePlate] = useState("1234");
   const [source, setSource] = useState("");
   const [destination, setDestination] = useState("");
-  const [stops,setStops] = useState([]); // Stores input values for each stop
+  const [stops, setStops] = useState([]); // User-entered stops
   const [error, setError] = useState("");
+  const [successMessage, setSuccessMessage] = useState(""); // ✅ Success message state
 
   // Add a new stop dynamically
   const addStop = () => {
@@ -19,18 +19,18 @@ const AddRoute = () => {
     }
   };
 
-  // Update currentLoad when input changes
+  // Update stops when input changes
   const updateStops = (index, value) => {
     const updatedStops = [...stops];
     updatedStops[index] = value;
     setStops(updatedStops);
-    console.log(stops);
   };
 
-  // API call to add truck
+  // API call to add route
   const handleAddRoute = async () => {
     try {
       setError(""); // ✅ Clear error before making API call
+      setSuccessMessage(""); // ✅ Clear previous success message
 
       const res = await axios.post(
         BASE_URL + "/scheduleDelivery/addroute",
@@ -39,7 +39,11 @@ const AddRoute = () => {
       );
 
       console.log("Route Added:", res.data);
-      setError(""); // ✅ Ensure error is cleared after success
+
+      // ✅ Show success message only on successful response
+      if (res.status === 200 || res.status === 201) {
+        setSuccessMessage("Route added successfully!");
+      }
     } catch (err) {
       console.log(err);
       setError(err.response?.data || "Something went wrong");
@@ -47,7 +51,7 @@ const AddRoute = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen p-10">
+    <div id="route" className="flex justify-center items-center min-h-screen p-10">
       <div className="p-8 rounded-lg shadow-lg w-[500px] bg-gray-800">
         <h1 className="text-center text-white text-2xl font-bold mb-6">Add Route</h1>
 
@@ -65,7 +69,7 @@ const AddRoute = () => {
           />
         </label>
 
-        {/* Total Capacity Input */}
+        {/* Source Input */}
         <label className="form-control w-full mt-4">
           <div className="label">
             <span className="label-text text-white">Source</span>
@@ -79,6 +83,7 @@ const AddRoute = () => {
           />
         </label>
 
+        {/* Destination Input */}
         <label className="form-control w-full mt-4">
           <div className="label">
             <span className="label-text text-white">Destination</span>
@@ -139,6 +144,9 @@ const AddRoute = () => {
         <button className="btn btn-success w-full mt-6" onClick={handleAddRoute}>
           Add
         </button>
+
+        {/* Success Message - ✅ Shows only on successful response */}
+        {successMessage && <p className="text-green-400 text-center mt-4">{successMessage}</p>}
 
         {/* Error Message Display */}
         {error && <p className="text-red-500 text-center mt-4">{error}</p>}

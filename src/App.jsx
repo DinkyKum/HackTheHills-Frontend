@@ -7,7 +7,8 @@ import appStore from "./utils/appStore";
 import AdminDashboard from "./Componenets/AdminDashboard";
 import MergedSchedule from "./Componenets/MergedSchedule";
 import MergeableSchedule from "./Componenets/MergeableSchedule";
-import TransportCompany from "./Componenets/TransportCompany";
+import Truck from "./Componenets/Truck";
+import AddRoute from "./Componenets/AddRoute";
 
 
 function App() {
@@ -18,7 +19,8 @@ function App() {
       <Route path="/" element={<Body/>}>
       <Route path="/" element={<Home/>}/>
       <Route path="/login" element={<Login/>}/>
-      <Route path="/transportCompany" element={<TransportCompany/>}/>
+      <Route path="/truck" element={<Truck/>}/>
+      <Route path="/route" element={<AddRoute/>}/>
       <Route path="/admin" element={<AdminDashboard/>}/>
       <Route path="/mergedSchedule" element={<MergedSchedule/>}/>
       <Route path="/mergeable" element={<MergeableSchedule/>}/>

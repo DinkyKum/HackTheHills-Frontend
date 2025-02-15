@@ -5,11 +5,13 @@ import { useNavigate } from "react-router-dom";
 
 
 const Truck = () => {
+
   const [stops, setStops] = useState(["Stop-1"]); // Initially, only one stop is visible
   const [licensePlate, setLicensePlate] = useState("1234");
   const [totalCapacity, setTotalCapacity] = useState(1000);
   const [currentLoad, setCurrentLoad] = useState([""]); // Stores input values for each stop
   const [error, setError] = useState("");
+  const [successMessage, setSuccessMessage] = useState(""); // ✅ Success message state
   const navigate = useNavigate();
 
   // Add a new stop dynamically
@@ -25,13 +27,13 @@ const Truck = () => {
     const updatedLoad = [...currentLoad];
     updatedLoad[index] = Number(value);
     setCurrentLoad(updatedLoad);
-    console.log(currentLoad);
   };
 
   // API call to add truck
   const handleAddTruck = async () => {
     try {
       setError(""); // ✅ Clear error before making API call
+      setSuccessMessage(""); // ✅ Clear previous success message
 
       const res = await axios.post(
         BASE_URL + "/scheduleDelivery/addtruck",
@@ -39,8 +41,13 @@ const Truck = () => {
         { withCredentials: true }
       );
 
+      navigate('/route')
       console.log("Truck Added:", res.data);
-      setError(""); // ✅ Ensure error is cleared after success
+      
+      // ✅ Show success message ONLY on success
+      if (res.status === 200 || res.status === 201) {
+        setSuccessMessage("Truck added successfully!");
+      }
     } catch (err) {
       console.log(err);
       setError(err.response?.data || "Something went wrong");
@@ -124,9 +131,12 @@ const Truck = () => {
         </ul>
 
         {/* Submit Button */}
-        <button className="btn btn-success w-full mt-6" onClick={handleAddTruck}>
+    <button className="btn btn-success w-full mt-6" onClick={handleAddTruck}>
           Add
         </button>
+
+        {/* Success Message - ✅ ONLY SHOWS ON SUCCESS */}
+        {successMessage && <p className="text-green-400 text-center mt-4">{successMessage}</p>}
 
         {/* Error Message Display */}
         {error && <p className="text-red-500 text-center mt-4">{error}</p>}
