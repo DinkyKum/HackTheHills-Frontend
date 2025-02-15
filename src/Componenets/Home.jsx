@@ -5,6 +5,8 @@ import Features from './Features'
 import AdminDashboard from './AdminDashboard'
 import ContactUs from './ContactUs'
 import ThemeProvider from './ThemeProvider'
+import Footer from './Footer'
+import FooterSec from './Footer'
 
 const Home = () => {
   return (
@@ -15,6 +17,7 @@ const Home = () => {
         <Features/>
         <About/>
         <ContactUs/>
+      <FooterSec/>
 
     </div>
   )
